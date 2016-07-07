@@ -1,0 +1,28 @@
+		-- on the GUI --
+main.sh
+ch_plot.py
+
+		-- off the GUI --
+ch_plot_final.py
+ch_test_final_box.py
+ica_test_alfa.py
+features1.py
+data_processing_4ch.py
+
+		-- Functions/savings --
+CSP.py
+csp_filter.py
+csp_filter_2.py
+features_standard.py
+
+		-- Non --
+ch_test_backup.py
+check_chan.py
+ica_test.py
+ica_test2.py
+ica_test3.py
+ch_plot_backup.py
+data_processing.py
+data_processing_standard.py
+data_processing_copy.py
+
