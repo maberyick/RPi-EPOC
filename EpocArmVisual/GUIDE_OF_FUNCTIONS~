@@ -1,0 +1,77 @@
+best for plotting live data
+	"PyQtGraph" of Qt, PyQt
+	Tkinter
+	wxPython
+
+	others,
+		Gnuplot
+		Phidgets
+
+Install the libraries in the raspberry Pi
+
+http://stackoverflow.com/questions/11215362/importerror-no-module-named-opengl-gl
+
+
+-  Pages to use for the notes and more
+
+http://en.wikibooks.org/wiki/A_Beginner's_Python_Tutorial/Classes#Creating_a_Class
+
+http://pymotw.com/2/Queue/
+http://pymotw.com/2/threading/
+
+http://www.troyfawkes.com/learn-python-multithreading-queues-basics/
+
+http://effbot.org/zone/thread-synchronization.htm
+
+- install in the raspberry pi
+python-kde4 , python-kde4-dev
+
+
+
+-- Guide for script exe as program -- 
+
+- se pone el interprete en el archivo .py que luego se cambiara a .sh
+
+#!/usr/bin/env python
+
+- se da privilegios de el solo al root y nadie mas
+
+su
+[enter password]
+chown root:root something.sh
+chmod 4755 something.sh
+exit
+
+- se crea un archivo el cual sera el ejetucador(exe), se puede borrar el archivo .c despues de ello
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <unistd.h>
+
+int main()
+{
+   setuid( 0 );
+   system( "/path/to/script.sh" );
+
+   return 0;
+}
+
+- el programa es en base a c, ya que esa libreria no majena problemas de seguridad como python
+- se compila 
+gcc runscript.c -o something
+su
+[enter password]
+chown root:root something
+chmod 4755 something
+
+-- ICA --
+main -> http://research.ics.aalto.fi/ica/fastica/
+
+http://scikit-learn.org
+http://mdp-toolkit.sourceforge.net/install.html
+
+http://scikit-learn.org/dev/auto_examples/decomposition/plot_ica_blind_source_separation.html
+
+http://mdp-toolkit.sourceforge.net/node_list.html#node-list
+
+http://scikit-learn.org/dev/auto_examples/decomposition/plot_ica_blind_source_separation.html

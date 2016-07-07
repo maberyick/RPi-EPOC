@@ -1,0 +1,52 @@
+-  Pages about emokit
+
+https://github.com/robotoer/emotiv_epoc
+
+https://github.com/qdot/emokit
+
+https://github.com/openyou/emokit
+
+http://blends.debian.org/science/tasks/bci
+
+https://github.com/ozancaglayan/python-emotiv
+
+
+
+
+- keyError
+
+https://wiki.python.org/moin/KeyError
+
+http://stackoverflow.com/questions/10116518/im-getting-key-error-in-python
+
+
+
+- pages of threads
+
+http://pymotw.com/2/threading/
+
+http://joplaete.wordpress.com/2010/07/21/threading-with-pyqt4/
+
+http://stackoverflow.com/questions/16753334/pyqt-running-a-loop-inside-gui
+
+http://jscastanoc.blogspot.com/2013/10/qthreads-interrupting-infinite-loop-in.html
+
+http://en.wikibooks.org/wiki/A_Beginner's_Python_Tutorial/Classes#Creating_a_Class
+
+
+
+-  Signal and Slots
+
+https://www.python.org/dev/peps/pep-0008/
+
+https://techbase.kde.org/Development/Tutorials/Python_introduction_to_signals_and_slots
+
+http://pyqt.sourceforge.net/Docs/PyQt4/new_style_signals_slots.html#the-pyqtslot-decorator
+
+
+
+- Gyro
+
+http://wiki.emotiv.com/tiki-index.php?page=EPOC+2-axis+gyroscope
+file:///home/maberyick/Downloads/sensors-13-10561.pdf
+

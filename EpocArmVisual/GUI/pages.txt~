@@ -1,0 +1,51 @@
+		Basics
+
+https://blog.safaribooksonline.com/2014/01/22/create-basic-gui-using-pyqt/
+http://zetcode.com/gui/pyqt4/firstprograms/
+http://www.gnuplot.info/
+http://gnuplot-py.sourceforge.net/
+http://www.pyqtgraph.org/
+http://www.pyqtgraph.org/documentation/introduction.html
+
+http://stackoverflow.com/questions/17424009/implementing-pyqtgraph-multiprocessing-into-a-pyqt-widget
+
+
+		pyqtgraph integration
+
+http://www.pyqtgraph.org/documentation/how_to_use.html
+
+http://www.pyqtgraph.org/documentation/widgets/graphicslayoutwidget.html#pyqtgraph.GraphicsLayoutWidget
+
+http://pyqt.sourceforge.net/Docs/PyQt4/designer.html
+
+http://stackoverflow.com/questions/15362624/how-do-you-execute-pyqt-ui-code-in-python
+
+
+		examples 
+http://www.pyqtgraph.org/documentation/introduction.html#examples
+
+
+		Events signals from GUI to python func.
+
+http://zetcode.com/gui/pyqt4/eventsandsignals/
+
+
+		Creating a Main Window
+http://qt-project.org/doc/qt-4.8/designer-creating-mainwindows.html
+
+
+
+		Add the function clicked() for a button
+
+In the designer,
+
+add Push Button to the form
+right click the Push Button
+select "Go to slot..."
+select "clicked()" signal
+done
+
+
+
+
+

@@ -1,0 +1,88 @@
+-- EPOC --
+LPF 85Hz
+HPF 0.16Hz
+NotchF. 50 y 60 Hz
+
+ERD -> Event Related syncrhonization
+ERS -> Event related Desynchronization
+BPF -> power sample -> average
+
+-- Alpha Waves --
+8 - 12 Hz
+Amplitude is suppressed by eyes open
+Large Amplitude is inhibition of task-irrelevant on cortical areas.
+Two alpha bands -> 
+alpha 1) 8 - 10 Hz  -> ERD, represents attentional processes (altertness) it is widespread
+alpha 2) 10 - 12 Hz -> ERD, localized and reflect sensory-motor processing and semantic coding.
+
+-- Beta Waves --
+12 - 30 Hz
+
+-- Mu Waves --
+
+-- Methods of Filtering/Extracting Important Values --
+CSP (Common Spatial Patterns) -> enhance discriminability between classes. 
+LogVar -> explots the variance of EEG trails low computing
+PSD (Power Spectrum Density)
+Wavelet
+
+-- Methods of Validating/Comparing the Values --
+LDA (Linear Discriminat Analysis) -> Classifier
+PCA (Principle Component Analysis) -> Reduce dimensionality of vectors
+
+-- Methods for saving the template or value to be compared --
+
+-- block system --
+
+<Bandpass Filer> -> <CSP> -> <LogVar,PSD,Wavelet> -> <PCA> -> <LDA>
+
+(supposedly focused on Beta and Mu range of freq.)
+
+
+-- Arctifacts --
+
+EEG	2uV	100uV	0.5	100Hz
+EOG	10uV	5mV	0	100Hz
+EMG	50uV	5mV	2	500Hz
+ECG	1mV	10mV	0.05	100Hz
+
+
+-- Temporal Pages --
+
+- power denity
+http://docs.scipy.org/doc/scipy-dev/reference/generated/scipy.signal.welch.html
+http://docs.scipy.org/doc/scipy-dev/reference/generated/scipy.signal.periodogram.html
+http://vibrationdata.com/python-wiki/index.php?title=Power_Spectral_Density
+
+- eeg tools
+https://github.com/mne-tools/mne-python
+http://mne-tools.github.io/mne-python-intro/
+http://martinos.org/mne/stable/auto_examples/decoding/plot_decoding_csp_space.html
+https://code.google.com/p/pyeeg/
+https://github.com/akloster/python-mindwave/blob/master/mindwave/pyeeg.py
+https://github.com/breuderink/eegtools
+https://www.youtube.com/watch?v=1ylndEyVuso
+http://www.hindawi.com/journals/cin/2011/406391/
+
+- correlation
+http://en.wikipedia.org/wiki/Hurst_exponent
+http://en.wikipedia.org/wiki/Common_spatial_pattern
+
+- emotiv work
+http://eeghacker.blogspot.com/search?updated-min=2015-01-01T00:00:00-05:00&updated-max=2016-01-01T00:00:00-05:00&max-results=3
+http://eeghacker.blogspot.com/2013/11/openbci-alpha-wave-detector.html
+http://eeghacker.blogspot.com/2014/04/detecting-concentration.html
+http://produceconsumerobot.com/thinkingcap/
+
+- specgram
+http://matplotlib.org/examples/pylab_examples/specgram_demo.html
+http://dsp.stackexchange.com/questions/10743/generating-spectrograms-in-python-with-less-noise
+http://stackoverflow.com/questions/15961979/how-do-i-plot-a-spectrogram-the-same-way-that-pylabs-specgram-does
+http://matplotlib.org/api/mlab_api.html#matplotlib.mlab.specgram
+
+- saving to file
+http://stackoverflow.com/questions/7127075/what-exactly-the-pythons-file-flush-is-doing
+http://www.pythonforbeginners.com/files/reading-and-writing-files-in-python
+
+
+
