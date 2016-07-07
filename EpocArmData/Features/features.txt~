@@ -1,0 +1,113 @@
+LSB 	-> 0.51 µV
+MSB 	-> 8.36 mV
+14 bit  -> (16384),(±8192)
+Dynamic Range -> ±4.17 mV
+DC_off_set = [0.16 HPF and continous average]
+-----------------------------------------------------------------
+-- range formulae --
+1 LSB = 0.51uV
+630   = X
+X = (0.51)*(var)
+X = val uV
+-------------------- Features Extraction - DATA MUST BE SAVED NOT PLOTTED
+-- Magnitudes
+type: {Highest, Lowest, mean}
+of: {Active, Non-Active, Standard}
+from: Alpha, Beta, Mu, EMG, Standard
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------- Steps for BCI--------------------------------------------------------------------------------------------------------------------------
+-- Online -- 
+(Multithreading)(8 channel[O1,O2,F3,F4,FC5,FC6,AF3,AF4] vs 5 channel[O2,F3,F4,AF3,AF4])(HPF(0.1Hz) vs BPF(1-45Hz))(SVM 2 class vs 1 against the rest)
+(Filter data before epoching BPF[1-45Hz])(Use FiltFilt instead of Lfilter)
+(Use a 6s window for filtering then take only 4s for the following vs  Apply 4s Filtering and use them, as it is, a sliding window)
+-- Offline --
+(After applying filter, delete first and last epoch from all trials e.g.[30 epochs instead of 32])
+(Use spectogram to analize the ICA)
+---------------------------------------- Online --------------------------------------------------------------------------------------------------------------------------------
+(Impedance,Battery) ->|Threshold detection|->|Inhibition|->|Action|
+(Gyr)|Gyro_X|	    ->|Threshold detection|->|Inhibition|->|Action|
+
+(A)  |EEG(O2)|	    ->|remove_DC|->|uV_convert|->|Filter|->|Scale|->|Extract Features|->|SVM + Scale|->|Inhibition|->|Action|
+
+(B)  |EEG(AF3,AF4)| ->|remove_DC|->|uV_convert|->|Filter|->|Scale|->|ICA(whiten + 5 chs)|->|PSD(ch Energy)|->|CSP|->|PSD^-1|->|Extract Features|->|Scale|->|SVM|->|Inhibition|->|Action|
+(Mu) |EEG(F3,F4)|   ->|remove_DC|->|uV_convert|->|Filter|->|Scale|->|ICA(whiten + 5 chs)|->|PSD(ch Energy)|->|CSP|->|PSD^-1|->|Extract Features|->|Scale|->|SVM|->|Inhibition|->|Action|
+(EMG)|EEG(AF3,AF4)| ->|remove_DC|->|uV_convert|->|Filter|->|Scale|->|Extract Features|->|Inhibition|->|Action|
+                   |_____________________________________________|
+                                           |
+                         before multithread (if possible)
+
+---------------------------------------- Offline -------------------------------------------------------------------------------------------------------------------------------
+(A)  |EEG(O2)|	    ->|remove_DC|->|uV_convert|->|Filter|->|epoching|->|Scale|->|Extract Features|->|Scale|->|SVM training|
+
+(B)  |EEG(AF3,AF4)| ->|remove_DC|->|uV_convert|->|Filter|->|epoching|->|Scale|->|ICA(whiten + 5 chs)|->|PSD(ch Energy)|->|CSP training|->|PSD^-1|->|Extract Features|->|Scale|->|SVM training|
+(Mu) |EEG(F3,F4)|   ->|remove_DC|->|uV_convert|->|Filter|->|epoching|->|Scale|->|ICA(whiten + 5 chs)|->|PSD(ch Energy)|->|CSP training|->|PSD^-1|->|Extract Features|->|Scale|->|SVM training|
+(EMG)|EEG(AF3,AF4)| ->|remove_DC|->|uV_convert|->|Filter|->|epoching|->|Scale|->|Extract Features|
+-> |Store variables at the end|
+
+
+------------------- (CSP) Common Spatial Pattern -----------------------------------------------------------------------------------------------------------------------------
+https://en.wikipedia.org/wiki/Common_spatial_pattern
+Those frequency bands can be on temporal or on frequential basis. Since the matrix {P} depends only of the covariance matrices,
+the same results can be obtained if the processing is applied on the Fourier transform of the signals.
+
+------------------- (ICA) Independent Component Analysis -----------------------------------------------------------------------------------------------------------------------------
+https://en.wikipedia.org/wiki/Common_spatial_pattern
+|detect the IC with less "information" and delete it|-||-|Save all the matrices and get a average of them |
+information = {less energy on its specific Freq. Band, lowest Hurst Exponent}
+- check for the total time of the processing ICA live vs with averaged matrix already saved
+- in the future, apply a Arctifact removal for offline cleaning
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------- Extract Features -------------------------------------------------------------------------------------------------------------------------------------------
+(Others[Skewness,Kurtosis,variance,Standard Deviation])
+(Ideal) |Wave Energy Ratio(PSD)|-|Petrosian Fractal Dimension|-|Hurst Exponent|
+--> Wave Ratio:	A[Alpha / Theta] , B[Beta / Theta] , Mu[(Beta+Gamma) / Mu] <--
+--> EMG[np.max(np.abs(wave))] vs EMG[numpy.linalg.norm(wave,ord)] ord = 2 <--   linalg.norm = sum(abs(x)**ord)**(1./ord)
+
+3 Features
+(A)   |Alpha,Theta Ratio  |-|Petrosian Fractal Dimension|-|Hurst Exponent|
+(B)   |Beta,Theta Ratio   |-|Petrosian Fractal Dimension|-|Hurst Exponent|
+(Mu)  |Mu,Beta,Gamma Ratio|-|Petrosian Fractal Dimension|-|Hurst Exponent|
+
+4 Features
+(A)   |Alpha Energy**(1./2)|-|Alpha,Theta Ratio  ! |-|Petrosian Fractal Dimension|-|Hurst Exponent|
+(B)   |Beta Energy**(1./2) |-|Beta,Theta Ratio   - |-|Petrosian Fractal Dimension|-|Hurst Exponent|
+(Mu)  |Mu Energy**(1./2)   |-|Mu,Beta,Gamma Ratio !|-|Petrosian Fractal Dimension|-|Hurst Exponent|
+
+Others
+(EMG) |Max Absolute|-|Frobenious Norm|
+(Gyr) |Deflection values(-/+)|
+
+------------------- EEG wave code Fq. range ------------------------------------------------------------------------------------------------------------------------------------
+-- specific --
+theta = [4,7.5] alpha = [7.6,12.5] beta1 = [12.6,16.5] beta2 = [16.6,20.5] beta3 = [20.6,30.5] gamma = [30.6,40] ; SMR = [12.6,16.5] Mu = [7.6,12.5]
+-- ideal --
+theta = [4,7] alpha = [8,12] beta1 = [13,16] beta2 = [17,20] beta3 = [21,30] gamma = [31,40] ; SMR = [13,16] Mu = [8,12]
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------- Artifact Avoidance------------------------------------------------------------------------------------------------------------------------------------------
+|EEG Impedance level|-|Gyro > Wink > A,B|-|Mangnidute Threshold||Battery levels|
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- Quantity --|values 12096|-----
+9 folders
+7 trials
+10 channels for each trial(for now)
+32 epochs per trial
+6 parameters
+------------------------------------------------------------------------
+---------------------------------
+file = [Relax,Concentr,Mu,EMG]
+-----------------
+Relax = [A]
+Concentr = [B]
+Mu = [MuL,MuR]
+EMG = [WL,WR,EOL,EOR,STR]
+-----------------
+A = [16_active,16_non-active]
+-----------------
+1_active = [Min,Max,Avg,STD,H,HFD]
+---------------------------------
+-------------------------------------------------------------------------
+- [Minimum, Maximum, average, standard deviation, Hurst exponent,Higuchi Fractal Dimension]
+- [Min,Max,Avg,STD,H,HFD]

@@ -1,0 +1,113 @@
+				Conclusion No. 1
+
+- EMG must be within a delay of 300ms, therefore EEG could be at double the delay, range,
+300ms ~ 600ms, not higher than 2s.
+
+- Make EOG be differentiated from the "Wink Function", as blinking is already not affecting
+the wink function.
+
+- IF -> ECG is affecting the measurements on the scalp, ICA must be included to filter out 
+the ECG and other noises.
+
+- Change the training method of "wink" for smaller window, as, for each wink a single window, for at least 75 winks, in a single trial, it is much better, therefore,
+-- each time a bang/sound is heard, make the wink.
+-- window range 0.5 ~ 1.5s {check in a plot the typical lenght of a wink}
+
+- Check the samples that are being overlapped on the SVM system, check if RBF does it naturally
+ as k-neighbors does.
+
+- Implement the threshold for the EEG and EMG activation prevention, meaning that:
+-- EEG within 100uV maximum, still, find the mean of all the values for relax,concent.
+-- EMG {not so sure, it is in the papers, range of mV} find it out through mean of all values.
+
+- To avoid the past point, it may need to implement the ONE vs ALL, over SVM,
+ACTIVE vs ALL-NON-ACTIVE, including, EOG, which may need for the actives, to be increased
+oversampling them with the found method.
+
+				Conclusion No. 2
+
+- Use >Biofeedback as regular feedback to show the user, the activation, and finished action,
+of the current function.
+
+-- Regular Feedback -> Visual and audio action{progress_bar_top+active_sound}
+-- Biofeedback	-> Vibrotctil system, on the left and right hand, and dif. parts, for
+relax, concentration, Motor Imagery.
+
+- Re-do the alpha system, with the new method of delay activation, entirely.
+
+- After all the work is done, move onto "Mu" work, as it is the "acing on the cake"
+1-- Finish the PC work, with no "delay"
+2-- move to RPi, and make sure the delay is within the acceptable range of less than 1s.
+3-- correction of all the sub-problems on the board, like, from ".py" to ".mat" file and "EDF".
+4-- write the first paper as it is need it within the second week of october.
+5-- Start the work of the "book" at least the boring parts.
+6-- Mu Work.
+
+- Fatigue is already included in the database, as the progression of the trials.
+5 small trials for Wink and Alpha, 1 big trial for Concentration.
+
+- create a form for the user to read and sign for the database and trials to be saved and used.
+- IF -> Update the RPi system to the latest, Jessie, without damaging the info.
+
+				Conclusion No. 3 {BCI}
+
+- Review all the powerpoint/pdf presentations for that specific subject
+
+- Possible feedback or loop_closure, in my case,
+-- when the object is grabbed
+-- when the object is put in a specific place
+-- when the robot rotates in its different forms.
+
+- References
+-- BRAIN "Brain Research Trough advancing innovative Neurophychologies"
+-- RAM "Restoring Active Memory"
+-- SUBNET
+-- DARPA "video: Wait,What?"
+-- IBRO "International Brain Research Organization"
+-- NeuroTycho "Web page for database"
+-- Computational NeuroEng Lab "CNEL" {Mu specific database}
+-- Applied Nonlineal time series "book"
+
+- My system could be called, "Manipulacion de un brazo robot con un sistema BCI Hibrido en RPi en codigo Python"
+
+- Methods
+-- Empirical Mode Decomposition "EMD"
+-- Adaptive Autoregressive Coeff "AAR"
+-- Lempel-ziv Complexity {complexity and repetitiveness of the signal}
+-- Surrogate Data
+-- comparision between Lempel-ziv and Hjorth Complexity
+-- Syncronization measure "Phase Locking Value"
+-- Syncronization index Based on "Shannon Entropy"
+-- bonferroni correction
+-- EDF Browser {software to scan those files EDF Format} -> PhysioNet
+
+- Feature Selection
+-- Feature Ranking
+-- Herastic Search
+
+- Feature Embedding
+-- Nonlinear Projections
+-- Main Fold Learning
+
+- Unsupervised Learning Method for Mu, as we do not know what it is appearing in Mu_range
+use Kernel Based Method
+
+- Adaptive FIlter can be saved a matrix to be used, or not?
+
+- Search for differences between,   Motor Imagery Movement vs Motor Real Hand Movement
+
+- EDFRead -> Python
+
+- Check Hjort Complexity for Noise{Random} vs Normal_signal
+
+				Conclusion No. 4 {Motor Imagery}
+
+- Kernel for classification for feature selection "unsupervised"
+- KRA, MIDKRA "Kernel-based feature relevance"
+- database used that is similar for the EPOC is, 
+2008 BCI Competition IV -> and they used, zero_mean|8-30Hz (BPF)|60 trials for each MI|
+- wavelet was the best on the results for Mu
+- page for github repository -> /gcypds
+
+Most Important Info 
+-> Andres Marimo Alvarez, amalvarezme@unal.com.co

@@ -1,0 +1,6 @@
+		= alfa =
+	Crossvalidation(10) -> C = 100	gamma = 0.01 -> 87.4
+
+		= beta =
+	Crossvalidation(10) -> C = 1000 gamma = 0.01 -> 78.8
+
